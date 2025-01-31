@@ -9,8 +9,6 @@
     <style>
         body {
             font-family: 'Arial, sans-serif';
-            margin: 0;
-            padding: 0;
             background-color: #2e2e2e;
             color: #f0f0f0;
             overflow: hidden;
@@ -47,6 +45,21 @@
             background-color: #A0A0A0;
             transform: scale(1.05);
         }
+        .modal-content {
+            min-height: 350px; /* Ensures all slides have the same height */
+        }
+        .carousel-item {
+            min-height: 350px; /* Consistent height for all slides */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out; /* Smooth fade animation */
+        }
+        .carousel-item.active {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -81,42 +94,50 @@
                         <div class="carousel-inner">
                             <!-- Slide 1: Event Details -->
                             <div class="carousel-item active">
-                                <h2>Event Details</h2>
-                                <p><strong>Date:</strong> January 25, 2025</p>
-                                <p><strong>Time:</strong> 5:00 PM</p>
-                                <p><strong>Location:</strong> The Grand Venue, City Name</p>
+                                <div>
+                                    <h2>Event Details</h2>
+                                    <p><strong>Date:</strong> January 25, 2025</p>
+                                    <p><strong>Time:</strong> 5:00 PM</p>
+                                    <p><strong>Location:</strong> The Grand Venue, City Name</p>
+                                </div>
                             </div>
                             <!-- Slide 2: RSVP -->
                             <div class="carousel-item">
-                                <h2>RSVP</h2>
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Your Name:</label>
-                                        <input type="text" id="name" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Your Email:</label>
-                                        <input type="email" id="email" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="attendance" class="form-label">Will you attend?</label>
-                                        <select id="attendance" class="form-select">
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-silver w-100">Submit</button>
-                                </form>
+                                <div>
+                                    <h2>RSVP</h2>
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Your Name:</label>
+                                            <input type="text" id="name" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Your Email:</label>
+                                            <input type="email" id="email" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="attendance" class="form-label">Will you attend?</label>
+                                            <select id="attendance" class="form-select">
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-silver w-100">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                             <!-- Slide 3: Gallery -->
                             <div class="carousel-item">
-                                <h2>Gallery</h2>
-                                <p>Photos coming soon...</p>
+                                <div>
+                                    <h2>Gallery</h2>
+                                    <p>Photos coming soon...</p>
+                                </div>
                             </div>
                             <!-- Slide 4: Contact -->
                             <div class="carousel-item">
-                                <h2>Contact Us</h2>
-                                <p>Email: <a href="mailto:wedding@example.com" class="text-warning">wedding@example.com</a></p>
+                                <div>
+                                    <h2>Contact Us</h2>
+                                    <p>Email: <a href="mailto:wedding@example.com" class="text-warning">wedding@example.com</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
