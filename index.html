@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Invitation</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -49,7 +48,7 @@
             padding: 20px;
             width: 80%;
             max-width: 500px;
-            min-height: 250px; /* Ensures all popups are the same size */
+            min-height: 250px;
             backdrop-filter: blur(10px);
             text-align: center;
             opacity: 0;
@@ -66,7 +65,7 @@
         .popup-content {
             display: none;
             width: 100%;
-            flex-grow: 1; /* Ensures all popups take the same height */
+            flex-grow: 1;
         }
         .popup-content.active {
             display: flex;
@@ -103,7 +102,7 @@
 </head>
 <body>
 
-    <div class="landing-page">
+    <div class="landing-page" id="landing-page">
         <div>
             <h1 id="header-one">You're Invited to Our Wedding</h1>
             <button id="enter-button" onclick="showPopup()">Enter</button>
@@ -120,7 +119,7 @@
 
         <div class="popup-content" id="rsvp-popup">
             <h2>RSVP</h2>
-            <form>
+            <form onsubmit="return handleFormSubmit(event)">
                 <label for="name">Your Name:</label><br>
                 <input type="text" id="name" name="name" required><br><br>
                 <label for="email">Your Email:</label><br>
@@ -151,9 +150,6 @@
             <span onclick="navigateToPopup(3)"></span>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         let currentPopupIndex = 0;
@@ -196,6 +192,18 @@
             touchEndX = event.changedTouches[0].clientX;
             if (touchEndX < touchStartX) navigateToPopup(currentPopupIndex + 1);
             if (touchEndX > touchStartX) navigateToPopup(currentPopupIndex - 1);
+        });
+
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Stops the form from refreshing the page
+            alert("Your RSVP has been submitted!");
+            return false; // Ensures no page reload
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !popupContainer.classList.contains("show")) {
+                showPopup();
+            }
         });
     </script>
 
