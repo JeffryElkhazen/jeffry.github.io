@@ -46,16 +46,16 @@
             transform: scale(1.05);
         }
         .modal-content {
-            min-height: 350px; /* Ensures all slides have the same height */
+            min-height: 350px;
         }
         .carousel-item {
-            min-height: 350px; /* Consistent height for all slides */
+            min-height: 350px;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out; /* Smooth fade animation */
+            transition: opacity 0.5s ease-in-out;
         }
         .carousel-item.active {
             opacity: 1;
@@ -68,21 +68,17 @@
     <div class="landing-page d-flex align-items-center justify-content-center">
         <div class="landing-overlay"></div>
         <div class="landing-content">
-            <h1 class="text-light fw-bold animate__animated animate__fadeInDown">You're Invited to Our Wedding</h1>
-            <button class="btn btn-silver mt-3 animate__animated animate__pulse animate__infinite" data-bs-toggle="modal" data-bs-target="#invitationModal">
+            <h1 class="text-light fw-bold">You're Invited to Our Wedding</h1>
+            <button class="btn btn-silver mt-3" data-bs-toggle="modal" data-bs-target="#invitationModal">
                 Enter
             </button>
         </div>
     </div>
 
-    <!-- Bootstrap Modal -->
-    <div class="modal fade" id="invitationModal" tabindex="-1" aria-labelledby="invitationModalLabel" aria-hidden="true">
+    <!-- Bootstrap Modal (No title, no close button) -->
+    <div class="modal fade" id="invitationModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark text-light">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="invitationModalLabel">Wedding Invitation</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body">
                     <div id="carouselExampleIndicators" class="carousel slide">
                         <div class="carousel-indicators">
@@ -92,7 +88,6 @@
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
                         </div>
                         <div class="carousel-inner">
-                            <!-- Slide 1: Event Details -->
                             <div class="carousel-item active">
                                 <div>
                                     <h2>Event Details</h2>
@@ -101,7 +96,6 @@
                                     <p><strong>Location:</strong> The Grand Venue, City Name</p>
                                 </div>
                             </div>
-                            <!-- Slide 2: RSVP -->
                             <div class="carousel-item">
                                 <div>
                                     <h2>RSVP</h2>
@@ -125,14 +119,12 @@
                                     </form>
                                 </div>
                             </div>
-                            <!-- Slide 3: Gallery -->
                             <div class="carousel-item">
                                 <div>
                                     <h2>Gallery</h2>
                                     <p>Photos coming soon...</p>
                                 </div>
                             </div>
-                            <!-- Slide 4: Contact -->
                             <div class="carousel-item">
                                 <div>
                                     <h2>Contact Us</h2>
