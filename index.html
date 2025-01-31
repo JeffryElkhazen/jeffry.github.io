@@ -11,7 +11,7 @@
             font-family: 'Arial, sans-serif';
             margin: 0;
             padding: 0;
-            background-color: #2e2e2e;
+            background: url('header-background.jpg') no-repeat center center/cover;
             color: #f0f0f0;
             overflow: hidden;
         }
@@ -20,8 +20,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url('header-background.jpg') no-repeat center center/cover;
-            color: white;
             text-align: center;
             background-color: rgba(0, 0, 0, 0.6);
         }
@@ -45,28 +43,35 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.8);
-            background: rgba(34, 34, 34, 0.9);
+            background: rgba(34, 34, 34, 0.7);
             border: 2px solid silver;
             border-radius: 10px;
             padding: 20px;
-            z-index: 1000;
             width: 80%;
             max-width: 500px;
+            min-height: 250px; /* Ensures all popups are the same size */
             backdrop-filter: blur(10px);
             text-align: center;
             opacity: 0;
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .popup-container.show {
-            display: block;
+            display: flex;
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
         .popup-content {
             display: none;
+            width: 100%;
+            flex-grow: 1; /* Ensures all popups take the same height */
         }
         .popup-content.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             animation: fadeEffect 0.5s ease-in-out;
         }
         @keyframes fadeEffect {
