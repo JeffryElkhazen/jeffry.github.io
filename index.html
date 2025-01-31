@@ -14,6 +14,8 @@
             color: #f0f0f0;
             overflow: hidden;
         }
+
+        /* Landing Page */
         .landing-page {
             height: 100vh;
             display: flex;
@@ -36,6 +38,8 @@
             background-color: #d0d0d0;
             color: black;
         }
+
+        /* Popup Container */
         .popup-container {
             display: none;
             position: fixed;
@@ -48,7 +52,7 @@
             padding: 20px;
             width: 80%;
             max-width: 500px;
-            min-height: 250px;
+            min-height: 300px; /* Ensure all popups are the same size */
             backdrop-filter: blur(10px);
             text-align: center;
             opacity: 0;
@@ -62,6 +66,8 @@
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
+
+        /* Popup Content */
         .popup-content {
             display: none;
             width: 100%;
@@ -73,14 +79,14 @@
             justify-content: center;
             animation: fadeEffect 0.5s ease-in-out;
         }
+
+        /* Fade Animation */
         @keyframes fadeEffect {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
+
+        /* Navigation Dots */
         .navigation-dots {
             display: flex;
             justify-content: center;
@@ -102,6 +108,7 @@
 </head>
 <body>
 
+    <!-- Landing Page -->
     <div class="landing-page" id="landing-page">
         <div>
             <h1 id="header-one">You're Invited to Our Wedding</h1>
@@ -109,16 +116,15 @@
         </div>
     </div>
 
+    <!-- Popup Container -->
     <div id="popup-container" class="popup-container">
         <div class="popup-content active" id="details-popup">
-            <h2>Event Details</h2>
             <p><strong>Date:</strong> January 25, 2025</p>
             <p><strong>Time:</strong> 5:00 PM</p>
             <p><strong>Location:</strong> The Grand Venue, City Name</p>
         </div>
 
         <div class="popup-content" id="rsvp-popup">
-            <h2>RSVP</h2>
             <form onsubmit="return handleFormSubmit(event)">
                 <label for="name">Your Name:</label><br>
                 <input type="text" id="name" name="name" required><br><br>
@@ -134,77 +140,46 @@
         </div>
 
         <div class="popup-content" id="gallery-popup">
-            <h2>Gallery</h2>
-            <p>Photos coming soon...</p>
+            <p>Photo Gallery Coming Soon!</p>
         </div>
 
-        <div class="popup-content" id="contact-popup">
-            <h2>Contact Us</h2>
-            <p>If you have any questions, contact us at <a href="mailto:wedding@example.com">wedding@example.com</a>.</p>
-        </div>
-
-        <div class="navigation-dots" id="navigation-dots">
-            <span class="active" onclick="navigateToPopup(0)"></span>
-            <span onclick="navigateToPopup(1)"></span>
-            <span onclick="navigateToPopup(2)"></span>
-            <span onclick="navigateToPopup(3)"></span>
+        <!-- Navigation Dots -->
+        <div class="navigation-dots">
+            <span onclick="changePopup(0)" class="active"></span>
+            <span onclick="changePopup(1)"></span>
+            <span onclick="changePopup(2)"></span>
         </div>
     </div>
 
     <script>
-        let currentPopupIndex = 0;
-        const popups = document.querySelectorAll(".popup-content");
-        const popupContainer = document.getElementById("popup-container");
-        const dots = document.querySelectorAll(".navigation-dots span");
+        let currentPopup = 0;
+        const popups = document.querySelectorAll('.popup-content');
+        const dots = document.querySelectorAll('.navigation-dots span');
 
         function showPopup() {
-            popupContainer.classList.add("show");
-            document.getElementById("enter-button").style.display = "none";
-            document.getElementById("header-one").style.display = "none";
-            navigateToPopup(0);
+            document.getElementById('landing-page').style.display = 'none';
+            const popupContainer = document.getElementById('popup-container');
+            popupContainer.style.display = 'flex';
+            setTimeout(() => {
+                popupContainer.classList.add('show');
+            }, 50); // Delay for smooth effect
         }
 
-        function navigateToPopup(index) {
-            if (index >= popups.length) index = 0;
-            if (index < 0) index = popups.length - 1;
-
-            popups.forEach(popup => popup.classList.remove("active"));
-            popups[index].classList.add("active");
-
-            dots.forEach(dot => dot.classList.remove("active"));
-            dots[index].classList.add("active");
-
-            currentPopupIndex = index;
+        function changePopup(index) {
+            if (index !== currentPopup) {
+                popups[currentPopup].classList.remove('active');
+                popups[index].classList.add('active');
+                dots[currentPopup].classList.remove('active');
+                dots[index].classList.add('active');
+                currentPopup = index;
+            }
         }
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener("click", () => navigateToPopup(index));
-        });
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        popupContainer.addEventListener("touchstart", event => {
-            touchStartX = event.touches[0].clientX;
-        });
-
-        popupContainer.addEventListener("touchend", event => {
-            touchEndX = event.changedTouches[0].clientX;
-            if (touchEndX < touchStartX) navigateToPopup(currentPopupIndex + 1);
-            if (touchEndX > touchStartX) navigateToPopup(currentPopupIndex - 1);
-        });
 
         function handleFormSubmit(event) {
-            event.preventDefault(); // Stops the form from refreshing the page
-            alert("Your RSVP has been submitted!");
-            return false; // Ensures no page reload
+            event.preventDefault();
+            alert("Thank you for your RSVP!");
+            return false;
         }
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Enter" && !popupContainer.classList.contains("show")) {
-                showPopup();
-            }
-        });
     </script>
 
 </body>
