@@ -50,8 +50,8 @@
             border-radius: 10px;
             padding: 20px;
             z-index: 1000;
-            width: 80%;
-            max-width: 500px;
+            max-width: 80%;
+            width: 500px;
             backdrop-filter: blur(10px);
             text-align: center;
             opacity: 0;
@@ -64,9 +64,9 @@
         }
         .popup-content {
             display: none;
-            min-height: 300px; /* Set to the height of your largest popup */
-            min-width: 400px;  /* Set to the width of your largest popup */
-            overflow: auto;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 400px; /* Set max-height to allow scroll if content is too large */
         }
         .popup-content.active {
             display: block;
