@@ -65,8 +65,10 @@
         .popup-content {
             display: none;
             padding: 20px;
-            overflow-y: auto;
-            max-height: 400px; /* Set max-height to allow scroll if content is too large */
+            width: 100%;
+            height: 300px; /* Set a fixed height for all popups */
+            overflow: auto; /* Allow scroll if content exceeds */
+            box-sizing: border-box;
         }
         .popup-content.active {
             display: block;
