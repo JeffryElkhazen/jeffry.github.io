@@ -66,8 +66,8 @@
             display: none;
             padding: 20px;
             width: 100%;
-            height: 300px; /* Set a fixed height for all popups */
-            overflow: auto; /* Allow scroll if content exceeds */
+            height: 300px;
+            overflow: auto;
             box-sizing: border-box;
         }
         .popup-content.active {
@@ -75,12 +75,8 @@
             animation: fadeEffect 0.5s ease-in-out;
         }
         @keyframes fadeEffect {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .navigation-dots {
             display: flex;
@@ -98,6 +94,28 @@
         }
         .navigation-dots .active {
             background-color: white;
+        }
+
+        /* Floating Outlined Hearts */
+        .heart {
+            position: fixed;
+            color: transparent;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 2px red, 0 0 4px red; /* Outline effect */
+            animation: floatUp 5s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0.5);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -167,9 +185,6 @@
         }
 
         function navigateToPopup(index) {
-            if (index >= popups.length) index = 0;
-            if (index < 0) index = popups.length - 1;
-
             popups.forEach(popup => popup.classList.remove("active"));
             popups[index].classList.add("active");
 
@@ -183,18 +198,24 @@
             dot.addEventListener("click", () => navigateToPopup(index));
         });
 
-        let touchStartX = 0;
-        let touchEndX = 0;
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "♡"; // Outlined heart character
+            document.body.appendChild(heart);
 
-        popupContainer.addEventListener("touchstart", event => {
-            touchStartX = event.touches[0].clientX;
-        });
+            const left = Math.random() * window.innerWidth;
+            const size = Math.random() * 30 + 10;
+            heart.style.left = `${left}px`;
+            heart.style.fontSize = `${size}px`;
+            heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
 
-        popupContainer.addEventListener("touchend", event => {
-            touchEndX = event.changedTouches[0].clientX;
-            if (touchEndX < touchStartX) navigateToPopup(currentPopupIndex + 1);
-            if (touchEndX > touchStartX) navigateToPopup(currentPopupIndex - 1);
-        });
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 500);
     </script>
 
 </body>
