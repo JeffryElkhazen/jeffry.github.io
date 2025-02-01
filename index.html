@@ -201,11 +201,24 @@
 
         // Function to navigate between popups
         function navigateToPopup(index) {
-            document.querySelectorAll(".popup-content").forEach(popup => popup.classList.remove("active"));
-            document.querySelectorAll(".popup-content")[index].classList.add("active");
+            const popups = document.querySelectorAll(".popup-content");
+            const dots = document.querySelectorAll(".navigation-dots span");
 
-            document.querySelectorAll(".navigation-dots span").forEach(dot => dot.classList.remove("active"));
-            document.querySelectorAll(".navigation-dots span")[index].classList.add("active");
+            popups.forEach((popup, i) => {
+                if (i === index) {
+                    popup.classList.add("active");
+                } else {
+                    popup.classList.remove("active");
+                }
+            });
+
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add("active");
+                } else {
+                    dot.classList.remove("active");
+                }
+            });
         }
 
         // Function to create floating hearts
@@ -221,9 +234,10 @@
             }, 500);
         }
 
-        // Touch event for swipe navigation
+        // Swipe Navigation Logic
         let startX;
         let startY;
+        let currentPopup = 0;
 
         document.addEventListener('touchstart', function(e) {
             const touch = e.changedTouches[0];
@@ -240,14 +254,21 @@
 
             if (Math.abs(diffX) > Math.abs(diffY)) {
                 if (diffX > 50) {
-                    navigateToPopup(Math.max(0, currentPopup - 1)); // Swipe Left
+                    // Swipe Left
+                    if (currentPopup > 0) {
+                        currentPopup--;
+                        navigateToPopup(currentPopup);
+                    }
                 } else if (diffX < -50) {
-                    navigateToPopup(Math.min(3, currentPopup + 1)); // Swipe Right
+                    // Swipe Right
+                    if (currentPopup < 3) {
+                        currentPopup++;
+                        navigateToPopup(currentPopup);
+                    }
                 }
             }
         }, false);
 
-        let currentPopup = 0; // Track the current popup index
         createHearts();
     </script>
 
