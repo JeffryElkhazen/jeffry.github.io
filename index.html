@@ -192,12 +192,14 @@
     </div>
 
     <script>
+        // Function to show the popup container
         function showPopup() {
             document.getElementById("popup-container").classList.add("show");
             document.getElementById("enter-button").style.display = "none";
             document.getElementById("header-one").style.display = "none";
         }
 
+        // Function to navigate between popups
         function navigateToPopup(index) {
             document.querySelectorAll(".popup-content").forEach(popup => popup.classList.remove("active"));
             document.querySelectorAll(".popup-content")[index].classList.add("active");
@@ -206,6 +208,7 @@
             document.querySelectorAll(".navigation-dots span")[index].classList.add("active");
         }
 
+        // Function to create floating hearts
         function createHearts() {
             setInterval(() => {
                 let heart = document.createElement("div");
@@ -218,6 +221,33 @@
             }, 500);
         }
 
+        // Touch event for swipe navigation
+        let startX;
+        let startY;
+
+        document.addEventListener('touchstart', function(e) {
+            const touch = e.changedTouches[0];
+            startX = touch.pageX;
+            startY = touch.pageY;
+        }, false);
+
+        document.addEventListener('touchend', function(e) {
+            const touch = e.changedTouches[0];
+            const endX = touch.pageX;
+            const endY = touch.pageY;
+            const diffX = endX - startX;
+            const diffY = endY - startY;
+
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 50) {
+                    navigateToPopup(Math.max(0, currentPopup - 1)); // Swipe Left
+                } else if (diffX < -50) {
+                    navigateToPopup(Math.min(3, currentPopup + 1)); // Swipe Right
+                }
+            }
+        }, false);
+
+        let currentPopup = 0; // Track the current popup index
         createHearts();
     </script>
 
