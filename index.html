@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* General Styles */
         body {
             font-family: 'Arial, sans-serif';
             margin: 0;
@@ -14,16 +15,17 @@
             background-color: #2e2e2e;
             color: #f0f0f0;
             overflow: hidden;
+            position: relative;
         }
+
+        /* Landing Page */
         .landing-page {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url('header-background.jpg') no-repeat center center/cover;
-            color: white;
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.6);
+            background: url('header-background.jpg') no-repeat center center/cover;
         }
         .landing-page button {
             padding: 15px 30px;
@@ -39,6 +41,8 @@
             background-color: #d0d0d0;
             color: black;
         }
+
+        /* Popup Container */
         .popup-container {
             display: none;
             position: fixed;
@@ -62,6 +66,8 @@
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
+
+        /* Popup Content */
         .popup-content {
             display: none;
             padding: 20px;
@@ -78,6 +84,8 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        /* Navigation Dots */
         .navigation-dots {
             display: flex;
             justify-content: center;
@@ -96,31 +104,23 @@
             background-color: white;
         }
 
-        /* Floating Outlined Hearts */
+        /* Floating White Outlined Hearts */
         .heart {
-            position: fixed;
-            color: transparent;
-            font-size: 20px;
-            font-weight: bold;
-            text-shadow: 0 0 2px red, 0 0 4px red; /* Outline effect */
-            animation: floatUp 5s linear infinite;
-            opacity: 0.8;
+            position: absolute;
+            font-size: 24px;
+            color: white;
+            opacity: 0.7;
+            animation: floatHearts 5s linear infinite;
         }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) scale(0.5);
-                opacity: 0;
-            }
+        @keyframes floatHearts {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Landing Page -->
     <div class="landing-page">
         <div>
             <h1 id="header-one">You're Invited to Our Wedding</h1>
@@ -128,6 +128,7 @@
         </div>
     </div>
 
+    <!-- Popup Container -->
     <div id="popup-container" class="popup-container">
         <div class="popup-content active" id="details-popup">
             <h2>Event Details</h2>
@@ -141,36 +142,24 @@
             <form>
                 <label for="name">Your Name:</label><br>
                 <input type="text" id="name" name="name" required><br><br>
-                <label for="attendance">Will you attend?</label><br>
-                <select id="attendance" name="attendance">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select><br><br>
-                <button type="submit" class="btn btn-light">Submit</button>
+                <button type="submit">Submit</button>
             </form>
         </div>
 
-        <div class="popup-content" id="gallery-popup">
-            <h2>Gallery</h2>
-            <p>Photos coming soon...</p>
+        <div class="popup-content" id="thankyou-popup">
+            <h2>Thank You</h2>
+            <p>We can't wait to celebrate with you!</p>
         </div>
 
-        <div class="popup-content" id="contact-popup">
-            <h2>Contact Us</h2>
-            <p>If you have any questions, contact us at <a href="mailto:wedding@example.com">wedding@example.com</a>.</p>
-        </div>
-
-        <div class="navigation-dots" id="navigation-dots">
-            <span class="active" onclick="navigateToPopup(0)"></span>
+        <!-- Navigation Dots -->
+        <div class="navigation-dots">
+            <span onclick="navigateToPopup(0)" class="active"></span>
             <span onclick="navigateToPopup(1)"></span>
             <span onclick="navigateToPopup(2)"></span>
-            <span onclick="navigateToPopup(3)"></span>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- JavaScript -->
     <script>
         let currentPopupIndex = 0;
         const popups = document.querySelectorAll(".popup-content");
@@ -185,6 +174,8 @@
         }
 
         function navigateToPopup(index) {
+            if (index < 0 || index >= popups.length) return;
+
             popups.forEach(popup => popup.classList.remove("active"));
             popups[index].classList.add("active");
 
@@ -194,14 +185,28 @@
             currentPopupIndex = index;
         }
 
-        dots.forEach((dot, index) => {
-            dot.addEventListener("click", () => navigateToPopup(index));
+        // Swipe Gesture Handling
+        let startX = 0;
+        popupContainer.addEventListener("touchstart", (e) => {
+            startX = e.touches[0].clientX;
         });
 
+        popupContainer.addEventListener("touchend", (e) => {
+            let endX = e.changedTouches[0].clientX;
+            let diff = endX - startX;
+
+            if (diff > 50) {
+                navigateToPopup(currentPopupIndex - 1);
+            } else if (diff < -50) {
+                navigateToPopup(currentPopupIndex + 1);
+            }
+        });
+
+        // Floating White Outlined Hearts
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart");
-            heart.innerHTML = "♡"; // Outlined heart character
+            heart.innerHTML = "♡"; // White outlined heart
             document.body.appendChild(heart);
 
             const left = Math.random() * window.innerWidth;
@@ -215,7 +220,7 @@
             }, 5000);
         }
 
-        setInterval(createHeart, 500);
+        setInterval(createHeart, 300);
     </script>
 
 </body>
