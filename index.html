@@ -42,14 +42,18 @@
         }
 
         .landing-page button {
-            padding: 15px 30px;
-            font-size: 1.5rem;
+            width: 80px;
+            height: 80px;
+            font-size: 1rem;
             color: white;
             background-color: silver;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 50%;
             transition: all 0.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .landing-page button:hover {
@@ -147,7 +151,7 @@
     <div class="landing-page">
         <div>
             <h1 id="header-one">You're Invited to Our Wedding</h1>
-            <button id="enter-button" onclick="showPopup()">Enter</button>
+            <button id="enter-button" onclick="showPopup()">Click Me</button>
         </div>
     </div>
 
@@ -192,36 +196,25 @@
     </div>
 
     <script>
-        // Function to show the popup container
         function showPopup() {
             document.getElementById("popup-container").classList.add("show");
             document.getElementById("enter-button").style.display = "none";
             document.getElementById("header-one").style.display = "none";
         }
 
-        // Function to navigate between popups
         function navigateToPopup(index) {
             const popups = document.querySelectorAll(".popup-content");
             const dots = document.querySelectorAll(".navigation-dots span");
 
             popups.forEach((popup, i) => {
-                if (i === index) {
-                    popup.classList.add("active");
-                } else {
-                    popup.classList.remove("active");
-                }
+                popup.classList.toggle("active", i === index);
             });
 
             dots.forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.add("active");
-                } else {
-                    dot.classList.remove("active");
-                }
+                dot.classList.toggle("active", i === index);
             });
         }
 
-        // Function to create floating hearts
         function createHearts() {
             setInterval(() => {
                 let heart = document.createElement("div");
@@ -233,41 +226,6 @@
                 setTimeout(() => heart.remove(), 8000);
             }, 500);
         }
-
-        // Swipe Navigation Logic
-        let startX;
-        let startY;
-        let currentPopup = 0;
-
-        document.addEventListener('touchstart', function(e) {
-            const touch = e.changedTouches[0];
-            startX = touch.pageX;
-            startY = touch.pageY;
-        }, false);
-
-        document.addEventListener('touchend', function(e) {
-            const touch = e.changedTouches[0];
-            const endX = touch.pageX;
-            const endY = touch.pageY;
-            const diffX = endX - startX;
-            const diffY = endY - startY;
-
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (diffX > 50) {
-                    // Swipe Left
-                    if (currentPopup > 0) {
-                        currentPopup--;
-                        navigateToPopup(currentPopup);
-                    }
-                } else if (diffX < -50) {
-                    // Swipe Right
-                    if (currentPopup < 3) {
-                        currentPopup++;
-                        navigateToPopup(currentPopup);
-                    }
-                }
-            }
-        }, false);
 
         createHearts();
     </script>
