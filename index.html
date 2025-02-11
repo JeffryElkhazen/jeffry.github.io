@@ -98,8 +98,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
-    background-color: rgba(0, 0, 0, 0.5); /* Transparent black */
-    border: 2px solid white; /* White border for visibility */
+    background-color: black; /* Reverts to solid black */
     border-radius: 10px;
     padding: 20px;
     z-index: 1000;
@@ -121,7 +120,7 @@
     overflow: auto;
     box-sizing: border-box;
     color: white;
-    background-color: transparent; /* Fully transparent background */
+    background-color: black; /* Reverts to solid black */
 }
 
 .popup-content.active {
@@ -129,7 +128,7 @@
     animation: fadeEffect 0.5s ease-in-out;
 }
 
-.popup-container  {
+.popup-container a {
     color: white;
     text-decoration: underline;
 }
