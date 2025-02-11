@@ -131,6 +131,27 @@
         .navigation-dots .active {
             background-color: white;
         }
+
+/* Floating Hearts */
+.floating-heart {
+    position: absolute;
+    font-size: 24px;
+    color: white;
+    opacity: 0.7;
+    animation: floatUp linear infinite;
+    pointer-events: none;  /* Prevent hearts from interfering with clicks */
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+    to {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -225,6 +246,21 @@
             if (touchEndX < touchStartX) navigateToPopup((currentIndex + 1) % popups.length);
             if (touchEndX > touchStartX) navigateToPopup((currentIndex - 1 + popups.length) % popups.length);
         }
+
+// Function to create floating hearts
+function createHearts() {
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.innerHTML = "♡";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 5 + 3 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+    }, 500);
+}
+
+createHearts();
     </script>
 
 </body>
