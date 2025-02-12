@@ -168,7 +168,34 @@
         .navigation-dots .active {
             background-color: white;
         }
-
+     /* Button for music toggle */
+           .music-toggle-btn { 
+		   display: none;
+             position: absolute; 
+             bottom: 20px; 
+             left: 20px; 
+            background-color: transparent; 
+            border: none; -
+             font-size: 3rem; 
+             color: white; 
+             cursor: pointer; 
+            transition: all 0.3s ease; 
+         } 
+  .music-toggle-btn.show {
+  display : block;
+             position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .music-toggle-btn:hover {
+            color: lightgray;
+        }
 /* Floating Hearts */
 .floating-heart {
     position: absolute;
@@ -199,8 +226,11 @@
         <source src="savethedate.mp4" type="video/mp4">
         <!-- Fallback image or video for unsupported browsers -->
         <img src="fallback-image.jpg" alt="Fallback Image">
-    </video> 
-
+    </video>
+<audio id="background-audio" autoplay loop>
+    <source src="music.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
     <div class="landing-page">
         <h1 id="header-one">Jeffry<br>&<br>Antonnella<br>Are getting married</h1>
         <div class="button-container">
@@ -247,15 +277,35 @@
             <span onclick="navigateToPopup(3)"></span>
         </div>
     </div>
+<button id="music-toggle" class="music-toggle-btn" onclick="toggleMusic()">♪</button>
 
     <script>
         let currentIndex = 0;
         const popups = document.querySelectorAll(".popup-content");
+let musicPlaying = true;
+        const audioElement = document.getElementById("background-audio");
+        const musicToggleBtn = document.getElementById("music-toggle");
+		
+
+        // Function to toggle music
+  function toggleMusic() {
+        if (musicPlaying) {
+            audioElement.pause(); // Stop the music
+            musicToggleBtn.textContent = "🔇"; // Change icon to paused
+        } else {
+            audioElement.play(); // Start the music
+            //musicToggleBtn.textContent = "🎵"; // Change icon to playing
+			musicToggleBtn.textContent = "♪";
+        }
+        musicPlaying = !musicPlaying;
+    }
 
         function showPopup() {
+		    document.getElementById("music-toggle").classList.add("show");
             document.getElementById("popup-container").classList.add("show");
             document.getElementById("enter-button").style.display = "none";
             document.getElementById("header-one").style.display = "none";
+			audioElement.play();
         }
 
         function navigateToPopup(index) {
@@ -304,9 +354,9 @@ function createHearts() {
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 8000);
     }, 500);
+	  audioElement.play();
 }
 
-createHearts();
     </script>
 
 </body>
