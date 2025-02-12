@@ -31,6 +31,17 @@
             text-align: center;
             color: white;
         }
+		
+		  /* Background Video */
+        #background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers the whole screen */
+            z-index: -1; /* Places the video behind other elements */
+        }
 
         .landing-page {
             text-align: center;
@@ -183,8 +194,15 @@
 </head>
 <body>
 
+   <!-- Background Video -->
+    <video id="background-video" autoplay muted loop>
+        <source src="savethedate.mp4" type="video/mp4">
+        <!-- Fallback image or video for unsupported browsers -->
+        <img src="fallback-image.jpg" alt="Fallback Image">
+    </video>
+
     <div class="landing-page">
-        <h1 id="header-one">Jeffry & Antonnella Are getting married</h1>
+        <h1 id="header-one">Jeffry<br>&<br>Antonnella<br>Are getting married</h1>
         <div class="button-container">
             <button id="enter-button" onclick="showPopup()">Tap to Start</button>
         </div>
