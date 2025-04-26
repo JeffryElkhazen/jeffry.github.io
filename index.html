@@ -90,7 +90,7 @@
             max-width: 90%;
             width: 500px;
             height: 60vh;
-            backdrop-filter: blur(10px);
+            /* backdrop-filter: blur(10px); */
             text-align: center;
             opacity: 0;
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
@@ -116,7 +116,7 @@
     max-width: 90%;
     width: 500px;
     height: 60vh;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     text-align: center;
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
@@ -175,7 +175,7 @@
              bottom: 20px; 
              left: 20px; 
             background-color: transparent; 
-            border: none; -
+            border: none; 
              font-size: 3rem; 
              color: white; 
              cursor: pointer; 
@@ -196,6 +196,10 @@
         .music-toggle-btn:hover {
             color: lightgray;
         }
+        #musicIcon {
+    width: 40px; /* Make it smaller */
+    height: 40px; /* Keep it proportional */
+}
 /* Floating Hearts */
 .floating-heart {
     position: absolute;
@@ -232,7 +236,7 @@
     Your browser does not support the audio element.
 </audio>
     <div class="landing-page">
-        <h1 id="header-one">Jeffry<br>&<br>Antonnella<br>Are getting married</h1>
+        <h1 id="header-one">Jeffry<br>&<br>Antonnella<br>Are Getting Married</h1>
         <div class="button-container">
             <button id="enter-button" onclick="showPopup()">Tap to Start</button>
         </div>
@@ -240,10 +244,11 @@
 
     <div id="popup-container" class="popup-container">
         <div class="popup-content active" id="details-popup">
-            <h2>Event Details</h2>
-            <p><strong>Date:</strong> January 25, 2025</p>
-            <p><strong>Time:</strong> 5:00 PM</p>
-            <p><strong>Location:</strong> The Grand Venue, City Name</p>
+            <h2>Wedding Details</h2>
+            <p><strong>Date:</strong> July 05, 2025</p>
+            <p><strong>Time:</strong> 07:00 PM</p>
+            <p><strong>Church:</strong> Al Wardiyeh Church Zouk Mosbeh</p>
+            <p><strong>Venue:</strong> L'heritage Venue</p>
         </div>
 
         <div class="popup-content" id="rsvp-popup">
@@ -260,24 +265,27 @@
             </form>
         </div>
 
-        <div class="popup-content" id="gallery-popup">
-            <h2>Gallery</h2>
-            <p>Photos coming soon...</p>
-        </div>
+        <div class="popup-content" id="location-popup">
+            <h2>Location</h2>
+            <p>Church</p>
+            <p>Venue</p>
+        </div> 
 
-        <div class="popup-content" id="contact-popup">
+        <!-- <div class="popup-content" id="contact-popup">
             <h2>Contact Us</h2>
             <p>For inquiries, email <a href="mailto:wedding@example.com" style="color: white;">wedding@example.com</a>.</p>
-        </div>
+        </div> -->
 
         <div class="navigation-dots" id="navigation-dots">
             <span class="active" onclick="navigateToPopup(0)"></span>
             <span onclick="navigateToPopup(1)"></span>
             <span onclick="navigateToPopup(2)"></span>
-            <span onclick="navigateToPopup(3)"></span>
+            <!-- <span onclick="navigateToPopup(3)"></span> -->
         </div>
     </div>
-<button id="music-toggle" class="music-toggle-btn" onclick="toggleMusic()">♪</button>
+<button id="music-toggle" class="music-toggle-btn" onclick="toggleMusic()">
+    <img id="musicIcon" src="pause.png" alt="♪" />
+</button>
 
     <script>
         let currentIndex = 0;
@@ -286,16 +294,17 @@ let musicPlaying = true;
         const audioElement = document.getElementById("background-audio");
         const musicToggleBtn = document.getElementById("music-toggle");
 		
+       //  createHearts();
 
         // Function to toggle music
   function toggleMusic() {
         if (musicPlaying) {
             audioElement.pause(); // Stop the music
-            musicToggleBtn.textContent = "🔇"; // Change icon to paused
+            musicIcon.src = "play.png"; // Change icon to paused
         } else {
             audioElement.play(); // Start the music
             //musicToggleBtn.textContent = "🎵"; // Change icon to playing
-			musicToggleBtn.textContent = "♪";
+			musicIcon.src = "pause.png";
         }
         musicPlaying = !musicPlaying;
     }
