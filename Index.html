@@ -3,203 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
+    <title>Jeffry & Antonnella</title>
+
+    <!-- Google Font: Great Vibes -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Arial, sans-serif';
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #2e2e2e; /* Dark background */
-            color: #f0f0f0; /* Light text */
-            overflow: hidden;
-        }
-        .landing-page {
+            background-color: black;
+            color: white;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url('header-background.jpg') no-repeat center center/cover;
-            color: white;
+            overflow: hidden;
+        }
+
+        h1,h2{
+            font-family: "Great Vibes", cursive;
+            font-size: 3rem;
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+            color: white;
         }
-        .landing-page button {
-            padding: 15px 30px;
-            font-size: 1.5rem;
-            color: black;
-            background-color: #C0C0C0; /* Silver button */
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+		
+		  /* Background Video */
+        #background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers the whole screen */
+            z-index: -1; /* Places the video behind other elements */
         }
-        .landing-page button:hover {
-            background-color: #A0A0A0; /* Slightly darker silver on hover */
+
+        .landing-page {
+            text-align: center;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        
+.landing-page button {
+    width: 100px;
+    height: 100px;
+    font-size: 1.2rem;
+    color: white;
+    background-color: transparent;
+    border: 2px solid white;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-page button:hover {
+    background-color: white;
+    color: black;
+}
         .popup-container {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(34, 34, 34, 0.9); /* Darker background for popup */
-            border: 2px solid silver; /* Silver border */
+            transform: translate(-50%, -50%) scale(0.8);
+            background-color: transparent;
             border-radius: 10px;
             padding: 20px;
             z-index: 1000;
-            width: 80%;
-            max-width: 500px;
-            backdrop-filter: blur(10px);
+            max-width: 90%;
+            width: 500px;
+            height: 60vh;
+            /* backdrop-filter: blur(10px); */
             text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            color: white;
         }
-        .popup-container h2 {
-            color: #f0f0f0;
+
+        .popup-container.show {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
-        .popup-container p, .popup-container form {
-            margin: 20px 0;
+
+        .popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: transparent; 
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1000;
+    max-width: 90%;
+    width: 500px;
+    height: 60vh;
+    /* backdrop-filter: blur(10px); */
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    color: white;
+}
+
+.popup-content {
+    display: none;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    color: white;
+    background-color: transparent; 
+}
+
+.popup-content.active {
+    display: block;
+    animation: fadeEffect 0.5s ease-in-out;
+}
+
+.popup-container a {
+    color: white;
+    text-decoration: underline;
+}
+
+        @keyframes fadeEffect {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
+
         .navigation-dots {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
+
         .navigation-dots span {
             height: 10px;
             width: 10px;
             margin: 0 5px;
             border-radius: 50%;
-            background-color: silver; /* Silver dot color */
+            background-color: gray;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
         .navigation-dots .active {
-            background-color: white; /* White for active dot */
+            background-color: white;
         }
-        .swipe-container {
-            display: flex;
-            width: 100%;
+     /* Button for music toggle */
+           .music-toggle-btn { 
+		   display: none;
+             position: absolute; 
+             bottom: 20px; 
+             left: 20px; 
+            background-color: transparent; 
+            border: none; 
+             font-size: 3rem; 
+             color: white; 
+             cursor: pointer; 
+            transition: all 0.3s ease; 
+         } 
+  .music-toggle-btn.show {
+  display : block;
+             position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .popup-content {
-            min-width: 100%;
-            transition: transform 0.3s ease;
-            display: none;
+        .music-toggle-btn:hover {
+            color: lightgray;
         }
-        .popup-content.active {
-            display: block;
-        }
+        #musicIcon {
+    width: 40px; /* Make it smaller */
+    height: 40px; /* Keep it proportional */
+}
+/* Floating Hearts */
+.floating-heart {
+    position: absolute;
+     bottom: 0;
+    font-size: 24px;
+    color: white;
+    opacity: 0.7;
+    animation: floatUp linear infinite;
+    pointer-events: none; /* Prevent hearts from interfering with clicks */
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
     </style>
 </head>
 <body>
+
+   <!-- Background Video -->
+    <video id="background-video" autoplay muted loop>
+        <source src="savethedate.mp4" type="video/mp4">
+        <!-- Fallback image or video for unsupported browsers -->
+        <img src="fallback-image.jpg" alt="Fallback Image">
+    </video>
+<audio id="background-audio" autoplay loop>
+    <source src="music.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
     <div class="landing-page">
-        <div>
-            <h1 id="header-one">You're Invited to Our Wedding</h1>
-            <button id="enter-button" onclick="showPopup()">Enter</button>
+        <h1 id="header-one">Jeffry<br>&<br>Antonnella<br>Are Getting Married</h1>
+        <div class="button-container">
+            <button id="enter-button" onclick="showPopup()">Tap to Start</button>
         </div>
     </div>
 
     <div id="popup-container" class="popup-container">
-        <div class="swipe-container" id="swipe-container">
-            <!-- Popup 1: Event Details -->
-            <div class="popup-content" id="details-popup">
-                <h2>Event Details</h2>
-                <p><strong>Date:</strong> January 25, 2025</p>
-                <p><strong>Time:</strong> 5:00 PM</p>
-                <p><strong>Location:</strong> The Grand Venue, City Name</p>
-            </div>
-
-            <!-- Popup 2: RSVP Form -->
-            <div class="popup-content" id="rsvp-popup">
-                <h2>RSVP</h2>
-                <form>
-                    <label for="name">Your Name:</label><br>
-                    <input type="text" id="name" name="name" required><br><br>
-                    <label for="email">Your Email:</label><br>
-                    <input type="email" id="email" name="email" required><br><br>
-                    <label for="attendance">Will you attend?</label><br>
-                    <select id="attendance" name="attendance">
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select><br><br>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-
-            <!-- Popup 3: Gallery -->
-            <div class="popup-content" id="gallery-popup">
-                <h2>Gallery</h2>
-                <p>Photos coming soon...</p>
-            </div>
-
-            <!-- Popup 4: Contact -->
-            <div class="popup-content" id="contact-popup">
-                <h2>Contact Us</h2>
-                <p>If you have any questions, feel free to contact us at <a href="mailto:wedding@example.com">wedding@example.com</a>.</p>
-            </div>
+        <div class="popup-content active" id="details-popup">
+            <h2>Wedding Details</h2>
+            <p><strong>Date:</strong> July 05, 2025</p>
+            <p><strong>Time:</strong> 07:00 PM</p>
+            <p><strong>Church:</strong> Al Wardiyeh Church Zouk Mosbeh</p>
+            <p><strong>Venue:</strong> L'heritage Venue</p>
         </div>
+
+        <div class="popup-content" id="rsvp-popup">
+            <h2>RSVP</h2>
+            <form>
+                <label for="name">Your Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="attendance">Will you attend?</label><br>
+                <select id="attendance" name="attendance">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select><br><br>
+                <button type="submit" class="btn btn-light">Submit</button>
+            </form>
+        </div>
+
+        <div class="popup-content" id="location-popup">
+            <h2>Location</h2>
+            <p>Church</p>
+            <p>Venue</p>
+        </div> 
+
+        <!-- <div class="popup-content" id="contact-popup">
+            <h2>Contact Us</h2>
+            <p>For inquiries, email <a href="mailto:wedding@example.com" style="color: white;">wedding@example.com</a>.</p>
+        </div> -->
 
         <div class="navigation-dots" id="navigation-dots">
             <span class="active" onclick="navigateToPopup(0)"></span>
             <span onclick="navigateToPopup(1)"></span>
             <span onclick="navigateToPopup(2)"></span>
-            <span onclick="navigateToPopup(3)"></span>
+            <!-- <span onclick="navigateToPopup(3)"></span> -->
         </div>
     </div>
+<button id="music-toggle" class="music-toggle-btn" onclick="toggleMusic()">
+    <img id="musicIcon" src="pause.png" alt="♪" />
+</button>
 
     <script>
-        let currentPopupIndex = 0;
-        const popups = ['details-popup', 'rsvp-popup', 'gallery-popup', 'contact-popup'];
+        let currentIndex = 0;
+        const popups = document.querySelectorAll(".popup-content");
+let musicPlaying = true;
+        const audioElement = document.getElementById("background-audio");
+        const musicToggleBtn = document.getElementById("music-toggle");
+		
+       //  createHearts();
+
+        // Function to toggle music
+  function toggleMusic() {
+        if (musicPlaying) {
+            audioElement.pause(); // Stop the music
+            musicIcon.src = "play.png"; // Change icon to paused
+        } else {
+            audioElement.play(); // Start the music
+            //musicToggleBtn.textContent = "🎵"; // Change icon to playing
+			musicIcon.src = "pause.png";
+        }
+        musicPlaying = !musicPlaying;
+    }
+
+        function showPopup() {
+		    document.getElementById("music-toggle").classList.add("show");
+            document.getElementById("popup-container").classList.add("show");
+            document.getElementById("enter-button").style.display = "none";
+            document.getElementById("header-one").style.display = "none";
+			audioElement.play();
+        }
+
+        function navigateToPopup(index) {
+            popups.forEach((popup, i) => {
+                popup.classList.toggle("active", i === index);
+            });
+
+            document.querySelectorAll(".navigation-dots span").forEach((dot, i) => {
+                dot.classList.toggle("active", i === index);
+            });
+
+            currentIndex = index;
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") navigateToPopup((currentIndex + 1) % popups.length);
+            if (e.key === "ArrowLeft") navigateToPopup((currentIndex - 1 + popups.length) % popups.length);
+        });
 
         let touchStartX = 0;
         let touchEndX = 0;
 
-        function showPopup() {
-            document.getElementById('popup-container').style.display = 'block';
-            document.getElementById('enter-button').style.display = 'none';
-            document.getElementById('header-one').style.display = 'none';
+        document.getElementById("popup-container").addEventListener("touchstart", function(event) {
+            touchStartX = event.changedTouches[0].screenX;
+        });
 
-            navigateToPopup(0);
+        document.getElementById("popup-container").addEventListener("touchend", function(event) {
+            touchEndX = event.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX) navigateToPopup((currentIndex + 1) % popups.length);
+            if (touchEndX > touchStartX) navigateToPopup((currentIndex - 1 + popups.length) % popups.length);
         }
 
-        function navigatePopup(direction) {
-            let newIndex = currentPopupIndex + direction;
-            if (newIndex < 0) newIndex = popups.length - 1;
-            if (newIndex >= popups.length) newIndex = 0;
+// Function to create floating hearts
 
-            currentPopupIndex = newIndex;
-            updatePopup();
-            updateNavigationDots();
-        }
+function createHearts() {
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.innerHTML = "♡";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 5 + 3 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+    }, 500);
+	  audioElement.play();
+}
 
-        function updatePopup() {
-            const currentPopup = document.getElementById(popups[currentPopupIndex]);
-            const popupsElements = document.querySelectorAll('.popup-content');
-            popupsElements.forEach(popup => popup.classList.remove('active'));
-            currentPopup.classList.add('active');
-        }
-
-        function updateNavigationDots() {
-            const dots = document.querySelectorAll('.navigation-dots span');
-            dots.forEach(dot => dot.classList.remove('active'));
-            dots[currentPopupIndex].classList.add('active');
-        }
-
-        function handleTouchStart(event) {
-            touchStartX = event.touches[0].clientX;
-        }
-
-        function handleTouchEnd(event) {
-            touchEndX = event.changedTouches[0].clientX;
-            if (touchEndX < touchStartX) navigatePopup(1);
-            if (touchEndX > touchStartX) navigatePopup(-1);
-        }
-
-        document.getElementById('popup-container').addEventListener('touchstart', handleTouchStart);
-        document.getElementById('popup-container').addEventListener('touchend', handleTouchEnd);
-
-        function navigateToPopup(index) {
-            currentPopupIndex = index;
-            updatePopup();
-            updateNavigationDots();
-        }
     </script>
+
 </body>
 </html>
