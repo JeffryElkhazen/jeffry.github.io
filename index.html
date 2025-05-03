@@ -129,9 +129,6 @@
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     color: white;
-    pointer-events:none;
-
-z-index: 100;
 }
 
 .popup-content {
@@ -144,21 +141,16 @@ z-index: 100;
     color: white;
     background-color: transparent; 
     overflow: visible;
-    pointer-events:none;
-z-index: 100;
 }
 
 .popup-content.active {
     display: block;
     animation: fadeEffect 0.5s ease-in-out;
-pointer-events: auto;
 }
 
 .popup-container a {
     color: white;
     text-decoration: underline;
-    pointer-events:none;
-z-index: 100;
 }
 
         @keyframes fadeEffect {
@@ -273,8 +265,7 @@ z-index: 100;
             <p><strong>Saturday, July 5th </strong></p>
              <p>7:00 pm</p> 
             <p><strong>Our Lady of Rosary Church</strong></p>
-            <p>Zouk Mosbeh</p>
-<br> 
+            <p>Zouk Mosbeh</p> 
             <button type="submit" class="btn btn-light">Location</button>
         </div> 
         <div class="popup-content" id="dinner-popup">
@@ -282,8 +273,7 @@ z-index: 100;
             <p><strong>After ceremony </strong></p>
              <p>8:00 pm</p> 
             <p><strong>L'Heritage Venue</strong></p>
-            <p>Zekrit, Naher el Kaleb</p>
-<br> 
+            <p>Zekrit, Naher el Kaleb</p> 
             <button type="submit" class="btn btn-light">Location</button>
         </div> 
         <div class="popup-content" id="Gift-popup">
@@ -375,14 +365,33 @@ let musicPlaying = true;
         let touchStartX = 0;
         let touchEndX = 0;
 
-        document.getElementById("popup-container").addEventListener("touchstart", function(event) {
-            touchStartX = event.changedTouches[0].screenX;
-        });
+        // document.getElementById("popup-container").addEventListener("touchstart", function(event) {
+        //     touchStartX = event.changedTouches[0].screenX;
+        // });
 
-        document.getElementById("popup-container").addEventListener("touchend", function(event) {
-            touchEndX = event.changedTouches[0].screenX;
-            handleSwipe();
-        });
+        // document.getElementById("popup-container").addEventListener("touchend", function(event) {
+        //     touchEndX = event.changedTouches[0].screenX;
+        //     handleSwipe();
+        // });
+        document.getElementById("popup-container").addEventListener("touchstart", function(event) {
+    // If touch starts on input, select, button, etc., skip swipe
+    const tag = event.target.tagName.toLowerCase();
+    if (["input", "select", "textarea", "button", "label"].includes(tag)) {
+        return;
+    }
+
+    touchStartX = event.changedTouches[0].screenX;
+});
+
+document.getElementById("popup-container").addEventListener("touchend", function(event) {
+    const tag = event.target.tagName.toLowerCase();
+    if (["input", "select", "textarea", "button", "label"].includes(tag)) {
+        return;
+    }
+
+    touchEndX = event.changedTouches[0].screenX;
+    handleSwipe();
+});
 
         function handleSwipe() {
             if (touchEndX < touchStartX) navigateToPopup((currentIndex + 1) % popups.length);
