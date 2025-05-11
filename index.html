@@ -84,6 +84,7 @@ border: 2px solid white;
 padding: 10px 20px;
 border-radius: 6px;
 font-size: 16px;
+text-shadow: 1px 1px 3px rgba(0,0,0,2);
 cursor: pointer;
 }
 .custom-button:hover{
@@ -99,6 +100,8 @@ padding: 1px 1px;
 border-radius: 6px;
 font-size: 12px;
 cursor: pointer;
+text-shadow: 1px 1px 3px rgba(0,0,0,2);
+
 /* appearance: none;
 -webkit-appearance: none;
 -moz-appearance: none; */
@@ -113,6 +116,26 @@ cursor: pointer;
     background-color: white;
     color: black;
 } 
+
+.custom-textbox{
+background-color: transparent;
+border: 2px solid white;
+color:white;
+padding: 10px 15x;
+border-radius: 6px;
+font-size: 16px;
+text-shadow: 1px 1px 3px rgba(0,0,0,2);
+outline: none;
+width: 100%;
+max-width: 250px;
+}
+.custom-textbox::placeholder{
+color: rgba(255,255,255,0.6);
+}
+.custom-textbox:focus{
+border-color: #ffffff;
+box-shadow: 0 0 5px rgba(255,255,255,0.4);
+}
 .landing-page button {
     width: 100px;
     height: 100px;
@@ -334,7 +357,7 @@ cursor: pointer;
             <p><strong>Please reply before June 20th, 2025</strong></p>
             <form>
                 <label for="name">Your Name:</label><br>
-                <input type="text" id="name" name="name" required><br>
+                <input type="text" id="name" name="name" required class="custom-textbox"><br>
                 <label for="noofattendees">Number of Attendees</label>
                 <select id="noofattendees" name="noofattendees" class="custom-dropdown">
                     <option value="1">1</option>
