@@ -77,8 +77,42 @@
         .button-container {
             margin-top: 20px;
         }
-
-        
+.custom-button{
+background-color: transparent;
+color:white;
+border: 2px solid white;
+padding: 10px 20px;
+border-radius: 6px;
+font-size: 16px;
+cursor: pointer;
+}
+.custom-button:hover{
+    /* background-color: rgba(255,255,255,0.1); */
+    background-color: white;
+    color: black;
+}
+.custom-dropdown{
+    background-color: transparent;
+color:white;
+border: 2px solid white;
+padding: 1px 1px;
+border-radius: 6px;
+font-size: 12px;
+cursor: pointer;
+/* appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none; */
+}  
+.custom-dropdown:hover{
+    /* background-color: rgba(255,255,255,0.1); */
+    background-color: white;
+    color: black;
+}  
+.custom-dropdown option{
+    /* background-color: rgba(255,255,255,0.1); */
+    background-color: white;
+    color: black;
+} 
 .landing-page button {
     width: 100px;
     height: 100px;
@@ -279,7 +313,7 @@
              <p>7:00 pm</p> 
             <p><strong>Our Lady of Rosary Church</strong></p>
             <p>Zouk Mosbeh</p> 
-            <button type="submit" class="btn btn-light">Location</button>
+            <button type="submit" class="custom-button" onclick="openMap('ceremony')">Location</button>
         </div> 
         <div class="popup-content" id="dinner-popup">
             <h2>Wedding Dinner</h2>
@@ -287,7 +321,7 @@
              <p>8:00 pm</p> 
             <p><strong>L'Heritage Venue</strong></p>
             <p>Zekrit, Naher el Kaleb</p> 
-            <button type="submit" class="btn btn-light">Location</button>
+            <button type="submit" class="custom-button" onclick="openMap('venue')">Location</button>
         </div> 
         <div class="popup-content" id="Gift-popup">
             <h2>Gift Registry</h2>
@@ -300,13 +334,18 @@
             <p><strong>Please reply before June 20th, 2025</strong></p>
             <form>
                 <label for="name">Your Name:</label><br>
-                <input type="text" id="name" name="name" required><br><br>
-                <label for="attendance">Will you attend?</label><br>
-                <select id="attendance" name="attendance">
+                <input type="text" id="name" name="name" required><br>
+                <label for="noofattendees">Number of Attendees</label>
+                <select id="noofattendees" name="noofattendees" class="custom-dropdown">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select><br>
+                <label for="willattend">Will you attend?</label>
+                <select id="willattend" name="willattend" class="custom-dropdown">
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select><br><br>
-                <button type="submit" class="btn btn-light">Submit</button>
+                <button type="submit" class="custom-button">Submit</button>
             </form>
         </div>
         <!-- <div class="popup-content" id="contact-popup">
@@ -426,6 +465,21 @@ function createHearts() {
         setTimeout(() => heart.remove(), 8000);
     }, 500);
 	  audioElement.play();
+}
+function openMap(locationType){
+let url = "";
+if (locationType === "venue"){
+    url = "https://maps.app.goo.gl/Zjp5JBvjKyCfwuWs6";
+} else if(locationType === "ceremony"){
+    url = "https://maps.app.goo.gl/rG5e9cJBXHizo3FG9";
+
+}
+if (url){
+    window.open(url,"_blank");
+} else{
+    alert("Location not found.");
+}
+
 }
 
 </script>
