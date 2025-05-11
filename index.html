@@ -355,7 +355,7 @@ box-shadow: 0 0 5px rgba(255,255,255,0.4);
         <div class="popup-content" id="rsvp-popup">
             <h2>Be Our Guest</h2>
             <p><strong>Please reply before June 20th, 2025</strong></p>
-            <form>
+            <form onsubmit="handleFormSubmit(event)">
                 <label for="name">Your Name:</label><br>
                 <input type="text" id="name" name="name" required class="custom-textbox"><br>
                 <label for="noofattendees">Number of Attendees</label>
@@ -504,7 +504,30 @@ if (url){
 }
 
 }
+      function handleFormSubmit(event) {
+            event.preventDefault();  // Prevent default form submission
+            const form = event.target;
+            const formData = new FormData(event.target);
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'submit.php', true);  // Replace with your PHP script URL
 
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    const response = JSON.parse(xhr.responseText);
+
+                    // Check the response and display a popup
+                    if (response.status === 'success') {
+                        form.reset();
+                        alert(response.message);  // You can replace this with custom modal code
+                    } else {
+                        alert('Error: ' + response.message);  // Error message popup
+                    }
+                }
+            };
+
+            // Send form data as POST
+            xhr.send(formData);
+        }
 </script>
 
 </body>

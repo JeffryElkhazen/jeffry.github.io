@@ -1,0 +1,7 @@
+{
+    "name": "jeffry-pc/evite",
+    "require": {
+        "google/apiclient": "^2.18",
+        "google/apiclient-services": "*"
+    }
+}
